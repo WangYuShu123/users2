@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <form action="/" method="post">
+        搜索☺：<input type="text" name="name" th:value="${session.likename==null}?'':${session.likename}">
+                <input type="submit" value="查询">
+    </form>
+
+
+<input type="button" value="增加" onclick="javascript:location.href='add1'"; >
+<table border="1px">
+    <tr>
+        <td>姓名</td>
+        <td>密码</td>
+        <td>日期</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="e:${session.info}">
+        <td th:text="${e.name}"></td>
+        <td th:text="${e.pwd}"></td>
+        <td th:text="${#dates.format(e.date,'yyyy-MM-dd')}"></td>
+        <td>
+            <a th:href="@{'up1/'+${e.id}}">更新</a>
+        </td>
+    </tr>
+</table>
+    <div>
+        <a th:href="@{'page?i=1'}">首页</a>
+        <a th:href="@{'page?i='+${session.i-1}}">上一页</a>
+        当前页[[${session.i}]]
+        <a th:href="@{'page?i='+${session.i+1}}">下一页</a>
+        <a th:href="@{'page?i='+${session.c}}">末页</a>
+        当前是第[[${session.i}]]页/
+        共[[${session.c}]]页
+    </div>
+</center>
+</body>
+</html>
